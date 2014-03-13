@@ -114,3 +114,16 @@ class ToyGraph:
       closeness = 1.0/farness
       cl.append((node, closeness))
     return cl
+
+  def connected_components(self):
+    comps = {}
+    for node in self.nodes:
+      comps[node] = -1
+    for node in self.nodes:
+      if (comps[node] == -1):
+        comps[node] = node
+        acc = self.shortest_distances(node)
+        for u in acc:
+          if (acc[u] != -1):
+            comps[u] = node
+    return comps
